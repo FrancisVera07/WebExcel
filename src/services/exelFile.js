@@ -1,6 +1,11 @@
 import axios from "axios";
 import {ENV} from "../utils/constans.js";
 
+/**
+ * Función para envíar el archivo al backend
+ * @param file -> archivo
+ * @returns {Promise<any>} -> Respuesta del backend
+ */
 const exelFile = async (file) => {
     try {
         const formData = new FormData();
@@ -10,10 +15,9 @@ const exelFile = async (file) => {
                 "Content-Type": "multipart/form-data"
             }
         })
-        console.log(response)
+        return response.request
     } catch (err) {
-        console.error("Error uploading file", err);
-        throw new Error("Error uploading file");
+        throw new Error("Error uploading file" + err.message);
     }
 }
 

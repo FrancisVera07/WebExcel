@@ -5,6 +5,7 @@ import {FileActions} from "./components/FileActions.jsx"
 import {FileTable} from "./components/FileTable.jsx"
 import {userFileUpload} from "./hooks/userFileUpload.js"
 import exelFile from "./services/exelFile.js";
+import Swal from "sweetalert2";
 
 const App = () => {
 
@@ -36,8 +37,19 @@ const App = () => {
 
             try {
                 await exelFile(excel);
+                Swal.fire({
+                    title: 'Éxito',
+                    text: 'El archivo se procesó correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
             } catch (e) {
-                console.error(e)
+                Swal.fire({
+                    title: 'Error',
+                    text: `${e.message}`,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         }
     }
