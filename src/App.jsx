@@ -4,6 +4,8 @@ import {FileInfo} from "./components/FileInfo.jsx"
 import {FileActions} from "./components/FileActions.jsx"
 import {FileTable} from "./components/FileTable.jsx"
 import {userFileUpload} from "./hooks/userFileUpload.js"
+import exelFile from "./services/exelFile.js";
+import Swal from "sweetalert2";
 
 const App = () => {
 
@@ -15,7 +17,8 @@ const App = () => {
         onDrop,
         setFileData,
         setFileName,
-        setError
+        setError,
+        excel
     } = userFileUpload()
 
     // Extenciones permitidas
@@ -27,9 +30,27 @@ const App = () => {
     /**
      * Función para guardar el archivo
      */
-    const handleUpload = () => {
-        if (fileData) {
-            alert("Archivo guardado como JSON con éxito")
+    const handleUpload = async () => {
+        if (excel) {
+            const formData = new FormData();
+            formData.append("file", excel)
+
+            try {
+                await exelFile(excel);
+                Swal.fire({
+                    title: 'Éxito',
+                    text: 'El archivo se procesó correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+            } catch (e) {
+                Swal.fire({
+                    title: 'Error',
+                    text: `${e.message}`,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
         }
     }
 
@@ -58,3 +79,4 @@ const App = () => {
 }
 
 export default App
+
