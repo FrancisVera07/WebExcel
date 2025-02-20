@@ -3,6 +3,7 @@ import * as XLSX from "xlsx";
 
 export const userFileUpload = () => {
     const [fileData, setFileData] = useState(null)
+    const [excel, setExcel] = useState(null)
     const [fileName, setFileName] = useState("")
     const [error, setError] = useState("")
 
@@ -28,6 +29,7 @@ export const userFileUpload = () => {
                     throw new Error("Archivo inválido")
                 }
 
+                setExcel(file)
                 setFileData(jsonData)
             } catch (err) {
                 setError("Archivo inválido: " + err.message)
@@ -37,5 +39,5 @@ export const userFileUpload = () => {
         reader.readAsBinaryString(file)
     }, [])
 
-    return { fileData, fileName, error, onDrop, setFileData, setFileName, setError }
+    return { fileData, fileName, error, onDrop, setFileData, setFileName, setError, excel }
 }
