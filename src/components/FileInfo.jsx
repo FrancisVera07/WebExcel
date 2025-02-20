@@ -1,5 +1,4 @@
 export const FileInfo = ({ fileName, error }) => {
-
     /**
      * Renderiza la el nombre del archivo cargado o error
      */
