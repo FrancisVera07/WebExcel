@@ -1,4 +1,5 @@
 export const FileDropzone = ({ getRootProps, getInputProps }) => {
+
     /**
      * Renderiza el componente FileDropzone.
      */
